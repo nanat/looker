@@ -34,6 +34,11 @@ view: sales_info {
     sql: ${TABLE}.Quantity ;;
   }
 
+  measure: total_revenue {
+    type:  number
+    sql: ${TABLE}.UnitPrice * ${TABLE}.Quantity;;
+  }
+
   set: detail {
     fields: [
         sales_id,
