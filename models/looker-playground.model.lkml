@@ -7,6 +7,6 @@ datagroup: looker-playground_default_datagroup {
 
 persist_with: looker-playground_default_datagroup
 
-#explore: sales_info (
-#
-#)
+# explore: sales_info {
+#   from:  sales_info
+# }

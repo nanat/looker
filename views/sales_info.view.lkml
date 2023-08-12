@@ -1,17 +1,9 @@
-#X# Conversion failed: failed to parse YAML.  Check for pipes on newlines
-
-
 view: sales_info {
-  derived_table: {
-    sql: select * from sales_info ;;
-  }
-
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
+  sql_table_name: `bigquery-test.sales_info`;;
+  drill_fields: [detail*]
 
   dimension: sales_id {
+    primary_key: yes
     type: number
     sql: ${TABLE}.SalesId ;;
   }
@@ -45,11 +37,11 @@ view: sales_info {
   set: detail {
     fields: [
         sales_id,
-  store_id,
-  product_id,
-  date,
-  unit_price,
-  quantity
+        store_id,
+        product_id,
+        date,
+        unit_price,
+        quantity
     ]
   }
 }
