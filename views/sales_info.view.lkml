@@ -34,7 +34,7 @@ view: sales_info {
     sql: ${TABLE}.Quantity ;;
   }
 
-  measure: total_revenue {
+  dimension: total_revenue {
     type:  number
     sql: ${TABLE}.UnitPrice * ${TABLE}.Quantity;;
   }
