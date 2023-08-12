@@ -108,4 +108,16 @@ view: superstore_sales {
     type: count
     drill_fields: [customer_name, product_name]
   }
+  measure: total_sales {
+    type: sum
+    sql: ${TABLE}.Sales;;
+  }
+  measure: total_profit {
+    type: sum
+    sql: ${TABLE}.Profit;;
+  }
+  measure: total_discount {
+    type: sum
+    sql: ${TABLE}.Discount;;
+  }
 }
