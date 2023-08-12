@@ -1,4 +1,4 @@
-connection: "bigquery-test"
+connection: "sales"
 
 include: "/views/sales_info.view"
 

@@ -1,5 +1,5 @@
 view: sales_info {
-  sql_table_name: `bigquery-test.sales_info`;;
+  sql_table_name: `sales.sales_info`;;
   drill_fields: [detail*]
 
   dimension: sales_id {
