@@ -30,6 +30,10 @@ view: superstore_sales {
     type: number
     sql: ${TABLE}.Discount ;;
   }
+  dimension: discount_ratio {
+    type: number
+    sql: 1.0* ${TABLE}.Discount / NULLIF(${TABLE}.Sales, 0) ;;
+  }
   dimension: number_of_records {
     type: number
     sql: ${TABLE}.Number_of_Records ;;
@@ -104,9 +108,13 @@ view: superstore_sales {
     type: string
     sql: ${TABLE}.Sub_Category ;;
   }
-  measure: count {
+  measure: number_of_orders {
     type: count
     drill_fields: [customer_name, product_name]
+  }
+  measure: number_of_customers {
+    type: count_distinct
+    sql: customer_name ;;
   }
   measure: total_sales {
     type: sum
@@ -116,8 +124,12 @@ view: superstore_sales {
     type: sum
     sql: ${TABLE}.Profit;;
   }
-  measure: total_discount {
-    type: sum
+  measure: avg_discount_percentage {
+    type: average
     sql: ${TABLE}.Discount;;
+  }
+  measure: avg_profit_ratio {
+    type: average
+    sql: ${TABLE}.Profit_Ratio;;
   }
 }
