@@ -51,7 +51,7 @@ view: superstore_sales {
     sql: ${TABLE}.Order_ID ;;
   }
   dimension: postal_code {
-    type: number
+    type: zipcode
     sql: ${TABLE}.Postal_Code ;;
   }
   dimension: product_name {
@@ -103,6 +103,7 @@ view: superstore_sales {
   }
   dimension: state {
     type: string
+    map_layer_name:  us_states
     sql: ${TABLE}.State ;;
   }
   dimension: sub_category {
@@ -132,5 +133,22 @@ view: superstore_sales {
   measure: avg_profit_ratio {
     type: average
     sql: ${TABLE}.Profit_Ratio;;
+    value_format: "0.00"
+  }
+  measure: avg_profit_percent {
+    type: average
+    sql: ${TABLE}.Profit_Ratio * 100;;
+  }
+  measure: sub_category_count {
+    type: count_distinct
+    sql: ${TABLE}.Sub_Category;;
+  }
+  measure: avg_purchase_value {
+    type: average
+    sql: ${TABLE}.Sales;;
+  }
+  measure: customer_lifespan_in_days {
+    type: number
+    sql:  DATE_DIFF(max(${order_date}), min(${order_date}), DAY) ;;
   }
 }
