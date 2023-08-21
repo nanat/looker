@@ -32,7 +32,7 @@ view: superstore_sales {
   }
   dimension: discount_ratio {
     type: number
-    sql: 1.0* ${TABLE}.Discount / NULLIF(${TABLE}.Sales, 0) ;;
+    sql: 1.0 * ${TABLE}.Discount / NULLIF(${TABLE}.Sales, 0) ;;
   }
   dimension: number_of_records {
     type: number
@@ -125,6 +125,10 @@ view: superstore_sales {
   measure: total_profit {
     type: sum
     sql: ${TABLE}.Profit;;
+  }
+  measure: avg_discount {
+    type: average
+    sql: ${TABLE}.Sales * ${TABLE}.Discount / 100;;
   }
   measure: avg_discount_percentage {
     type: average
