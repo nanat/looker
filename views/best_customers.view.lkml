@@ -4,28 +4,28 @@
 view: best_customers {
   derived_table: {
     sql: WITH most_profitable_customers AS (
-          select customer_name, sum(profit) as total_profit, sum(sales) as total_sales, sum(quantity) as total_items, count(*) as number_of_orders
+          select customer_name, sum(profit) as total_profit, sum(sales) as total_sales, sum(quantity) as total_items, count(distinct(order_id)) as number_of_orders
           FROM `api-project-465858738704.sales.superstore_sales`
           group by customer_name
           order by total_profit desc
           limit 100
       ),
       highest_sales_customers AS (
-          select customer_name, sum(profit) as total_profit, sum(sales) as total_sales, sum(quantity) as total_items, count(*) as number_of_orders
+          select customer_name, sum(profit) as total_profit, sum(sales) as total_sales, sum(quantity) as total_items, count(distinct(order_id)) as number_of_orders
           FROM `api-project-465858738704.sales.superstore_sales`
           group by customer_name
           order by total_sales desc
           limit 100
       ),
       most_items_customers AS (
-          select customer_name, sum(profit) as total_profit, sum(sales) as total_sales, sum(quantity) as total_items, count(*) as number_of_orders
+          select customer_name, sum(profit) as total_profit, sum(sales) as total_sales, sum(quantity) as total_items, count(distinct(order_id)) as number_of_orders
           FROM `api-project-465858738704.sales.superstore_sales`
           group by customer_name
           order by total_items desc
           limit 100
       ),
       most_orders_customers AS (
-          select customer_name, sum(profit) as total_profit, sum(sales) as total_sales, sum(quantity) as total_items, count(*) as number_of_orders
+          select customer_name, sum(profit) as total_profit, sum(sales) as total_sales, sum(quantity) as total_items, count(distinct(order_id)) as number_of_orders
           FROM `api-project-465858738704.sales.superstore_sales`
           group by customer_name
           order by number_of_orders desc
