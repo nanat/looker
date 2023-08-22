@@ -8,6 +8,20 @@ view: superstore_sales {
       FROM `api-project-465858738704.sales.superstore_sales`);;
   }
 
+  # dimension: clv {
+  #   type: number
+  #   sql: SELECT avg(Sales) * count(Order_ID)/count(distinct(Customer_Name)) *
+  #     (SELECT avg_customer_lifespan FROM (
+  #       SELECT AVG(customer_lifetime) as avg_customer_lifespan FROM (
+  #         SELECT date_diff(max(Order_Date), min(Order_Date), YEAR) as customer_lifetime
+  #         FROM `api-project-465858738704.sales.superstore_sales`
+  #         GROUP BY Customer_Name
+  #       )
+  #     )
+  #   )
+  #   FROM `api-project-465858738704.sales.superstore_sales` ;;
+  # }
+
   dimension: category {
     type: string
     sql: ${TABLE}.Category ;;
@@ -171,20 +185,24 @@ view: superstore_sales {
     hidden: no
     sql: trunc((${customer_revenue_rank}-1)*1.0/(${total_customers})/.25) ;;
   }
-  dimension: label_placeholder {
-    hidden: yes
-    sql: (Lifetime);; # We will need to override this sql to update labels when extending this view and applying different filters.
-  }
+  # dimension: label_placeholder {
+  #   hidden: yes
+  #   sql: (Lifetime);; # We will need to override this sql to update labels when extending this view and applying different filters.
+  # }
   measure: customer_revenue_rank_group {
-    group_label: "{{label_placeholder._sql}}" label: "Revenue Rank Group {{label_placeholder._sql}}"
+    group_label: "revenue_rank_group" label: "Revenue Rank Group"
     case: {
-      #when: {sql:${customer_revenue_rank}<=200;; label:"Top 200"}
+      when: {sql:${customer_revenue_rank}<=20;; label:"Top 20"}
       when: {sql:${customer_revenue_rank_quartile}=0;; label:"1st 25%"}
       when: {sql:${customer_revenue_rank_quartile}=1;; label:"2nd 25%"}
-      when: {sql:${customer_revenue_rank_quartile}=2;; label:"3nd 25%"}
+      when: {sql:${customer_revenue_rank_quartile}=2;; label:"3rd 25%"}
       else:"Bottom 25%"
     }
-    #html: {% if value == 'Top 200'%}😀<span style="color: green">{{rendered_value}}</span>{%else%}{{rendered_value}}{%endif%} ;;
+    html: {% if value == 'Top 20'%}😀<span style="color: green">{{rendered_value}}</span>
+    {% elsif value == '1st 25%'%}😊<span style="color: blue">{{rendered_value}}</span>
+    {% elsif value == '2nd 25%'%}😑<span style="color: purple">{{rendered_value}}</span>
+    {% elsif value == '3rd 25%'%}😢<span style="color: orange">{{rendered_value}}</span>
+    {% elsif value == 'Bottom 25%'%}😡<span style="color: red">{{rendered_value}}</span>
+    {%else%}{{rendered_value}}{%endif%} ;;
   }
-
 }

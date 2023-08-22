@@ -75,10 +75,10 @@ view: best_customers {
   set: detail {
     fields: [
         customer_name,
-  total_profit,
-  total_sales,
-  total_items,
-  number_of_orders
+        total_profit,
+        total_sales,
+        total_items,
+        number_of_orders
     ]
   }
 }
