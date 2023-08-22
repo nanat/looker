@@ -1,6 +1,13 @@
 view: superstore_sales {
   sql_table_name: `api-project-465858738704.sales.superstore_sales` ;;
 
+  measure: total_customers {
+    type: number
+    sql:  select count(*) as total_customers from (
+      select distinct(customer_name)
+      FROM `api-project-465858738704.sales.superstore_sales`);;
+  }
+
   dimension: category {
     type: string
     sql: ${TABLE}.Category ;;
@@ -116,7 +123,7 @@ view: superstore_sales {
   }
   measure: number_of_customers {
     type: count_distinct
-    sql: customer_name ;;
+    sql: ${TABLE}.Customer_Name ;;
   }
   measure: total_sales {
     type: sum
@@ -155,4 +162,29 @@ view: superstore_sales {
     type: number
     sql:  DATE_DIFF(max(${order_date}), min(${order_date}), DAY) ;;
   }
+
+  measure: customer_revenue_rank {
+    sql: rank() over(order by ${total_sales} desc) ;;
+    type: number
+  }
+  measure: customer_revenue_rank_quartile {
+    hidden: no
+    sql: trunc((${customer_revenue_rank}-1)*1.0/(${total_customers})/.25) ;;
+  }
+  dimension: label_placeholder {
+    hidden: yes
+    sql: (Lifetime);; # We will need to override this sql to update labels when extending this view and applying different filters.
+  }
+  measure: customer_revenue_rank_group {
+    group_label: "{{label_placeholder._sql}}" label: "Revenue Rank Group {{label_placeholder._sql}}"
+    case: {
+      #when: {sql:${customer_revenue_rank}<=200;; label:"Top 200"}
+      when: {sql:${customer_revenue_rank_quartile}=0;; label:"1st 25%"}
+      when: {sql:${customer_revenue_rank_quartile}=1;; label:"2nd 25%"}
+      when: {sql:${customer_revenue_rank_quartile}=2;; label:"3nd 25%"}
+      else:"Bottom 25%"
+    }
+    #html: {% if value == 'Top 200'%}😀<span style="color: green">{{rendered_value}}</span>{%else%}{{rendered_value}}{%endif%} ;;
+  }
+
 }
