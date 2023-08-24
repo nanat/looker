@@ -73,6 +73,7 @@ view: superstore_sales {
   }
   dimension: postal_code {
     type: zipcode
+    # map_layer_name: us_zipcode_tabulation_areas
     sql: ${TABLE}.Postal_Code ;;
   }
   dimension: product_name {
@@ -93,6 +94,7 @@ view: superstore_sales {
   }
   dimension: region {
     type: string
+    drill_fields: [state, city, postal_code]
     sql: ${TABLE}.Region ;;
   }
   dimension: sales {
@@ -125,6 +127,7 @@ view: superstore_sales {
   dimension: state {
     type: string
     map_layer_name:  us_states
+    drill_fields: [city, postal_code]
     sql: ${TABLE}.State ;;
   }
   dimension: sub_category {
@@ -204,5 +207,28 @@ view: superstore_sales {
     {% elsif value == '3rd 25%'%}😢<span style="color: orange">{{rendered_value}}</span>
     {% elsif value == 'Bottom 25%'%}😡<span style="color: red">{{rendered_value}}</span>
     {%else%}{{rendered_value}}{%endif%} ;;
+  }
+
+  measure: sales_min {
+    type:  min
+    sql: ${sales};;
+  }
+  measure: sales_25 {
+    type:  percentile
+    percentile: 25
+    sql: ${sales};;
+  }
+  measure: sales_median {
+    type:  median
+    sql: ${sales};;
+  }
+  measure: sales_75 {
+    type:  percentile
+    percentile: 75
+    sql: ${sales};;
+  }
+  measure: sales_max {
+    type:  max
+    sql: ${sales};;
   }
 }
