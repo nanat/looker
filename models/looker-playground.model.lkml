@@ -5,6 +5,7 @@ include: "/views/superstore_sales.view"
 include: "/views/customer_lifetime_value.view"
 include: "/views/best_customers.view"
 include: "/views/uk_population_by_age.view"
+include: "/views/uk_population_by_year.view"
 
 datagroup: looker-playground_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -33,6 +34,10 @@ explore: customer_lifetime_value {
 
 explore: aging_population {
   from: uk_population_by_age
+}
+
+explore: population_by_year {
+  from: uk_population_by_year
 }
 
 
