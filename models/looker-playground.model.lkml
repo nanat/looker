@@ -6,6 +6,7 @@ include: "/views/customer_lifetime_value.view"
 include: "/views/best_customers.view"
 include: "/views/uk_population_by_age.view"
 include: "/views/uk_population_by_year.view"
+include: "/views/uk_predicted_population.view"
 
 datagroup: looker-playground_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -38,6 +39,10 @@ explore: aging_population {
 
 explore: population_by_year {
   from: uk_population_by_year
+}
+
+explore: predicted_population {
+  from: uk_predicted_population
 }
 
 

@@ -9,4 +9,8 @@ view: uk_population_by_year {
     type: number
     sql: ${TABLE}.population ;;
   }
+  dimension: actual {
+    type: yesno
+    sql: ${TABLE}.actual ;;
+  }
 }
