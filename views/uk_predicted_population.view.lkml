@@ -2,7 +2,7 @@ view: uk_predicted_population {
   sql_table_name: `api-project-465858738704.uk_population.uk_predicted_population` ;;
 
   dimension: year {
-    type: string
+    type: number
     sql: ${TABLE}.year ;;
   }
   dimension: gender {
@@ -68,5 +68,25 @@ view: uk_predicted_population {
   measure: retirement_age {
     type:  sum
     sql: ${age_65_69} + ${age_70_74} + ${age_75_79} + ${age_80_84} + ${age_85_89} + ${age_90_94} + ${age_95_99} + ${age_100_plus} ;;
+  }
+  measure: total {
+    type:  number
+    sql: ${infants} + ${school_age} + ${work_age} + ${retirement_age}  ;;
+  }
+  measure: infants_percent {
+    type:  number
+    sql: ${infants} * 100 / ${total} ;;
+  }
+  measure: school_percent {
+    type:  number
+    sql: ${school_age} * 100 / ${total} ;;
+  }
+  measure: work_age_percent {
+    type:  number
+    sql: ${work_age} * 100 / ${total} ;;
+  }
+  measure: retirement_age_percent {
+    type:  number
+    sql: ${retirement_age} * 100 / ${total} ;;
   }
 }
