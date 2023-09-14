@@ -1,17 +1,25 @@
 view: wellbeing {
   sql_table_name: `api-project-465858738704.uk_population.wellbeing` ;;
 
+  dimension: year {
+    type: number
+    sql: ${TABLE}.year ;;
+  }
   dimension: age {
     type: string
     sql: ${TABLE}.age ;;
   }
-  dimension: anxiety {
-    type: number
-    sql: ${TABLE}.anxiety ;;
-  }
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
+  }
+  dimension: loneliness {
+    type: number
+    sql: ${TABLE}.loneliness ;;
+  }
+  dimension: anxiety {
+    type: number
+    sql: ${TABLE}.anxiety ;;
   }
   dimension: happiness {
     type: number
@@ -21,19 +29,28 @@ view: wellbeing {
     type: number
     sql: ${TABLE}.life_satisfaction ;;
   }
-  dimension: loneliness {
-    type: number
-    sql: ${TABLE}.loneliness ;;
-  }
   dimension: worthwhile {
     type: number
     sql: ${TABLE}.worthwhile ;;
   }
-  dimension: year {
-    type: number
-    sql: ${TABLE}.year ;;
+  measure: loneliness_avg {
+    type: average
+    sql:  ${loneliness} ;;
   }
-  measure: count {
-    type: count
+  measure: anxiety_avg {
+    type: average
+    sql:  ${anxiety} ;;
+  }
+  measure: happiness_avg {
+    type: average
+    sql:  ${happiness} ;;
+  }
+  measure: life_satisfaction_avg {
+    type: average
+    sql:  ${life_satisfaction} ;;
+  }
+  measure: worthwhile_avg {
+    type: average
+    sql:  ${worthwhile} ;;
   }
 }
