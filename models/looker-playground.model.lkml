@@ -7,6 +7,7 @@ include: "/views/best_customers.view"
 include: "/views/uk_population_by_age.view"
 include: "/views/uk_population_by_year.view"
 include: "/views/uk_predicted_population.view"
+include: "/views/wellbeing.view"
 
 datagroup: looker-playground_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -45,6 +46,9 @@ explore: predicted_population {
   from: uk_predicted_population
 }
 
+explore: wellbeing {
+  from: wellbeing
+}
 
 test: sample_test {
   explore_source: superstore {
