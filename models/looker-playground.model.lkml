@@ -8,6 +8,8 @@ include: "/views/uk_population_by_age.view"
 include: "/views/uk_population_by_year.view"
 include: "/views/uk_predicted_population.view"
 include: "/views/wellbeing.view"
+include: "/views/income_after_housing_cost.view"
+include: "/views/weekly_expenditures.view"
 
 datagroup: looker-playground_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -48,6 +50,14 @@ explore: predicted_population {
 
 explore: wellbeing {
   from: wellbeing
+}
+
+explore: income {
+  from: income_after_housing_cost
+}
+
+explore: expenditures {
+  from: weekly_expenditures
 }
 
 test: sample_test {
