@@ -17,7 +17,8 @@ view: weekly_expenditures {
     type: number
     sql: ${TABLE}.weekly_expenditure ;;
   }
-  measure: count {
-    type: count
+  measure: expense {
+    type: max
+    sql: ${weekly_expenditure} ;;
   }
 }
