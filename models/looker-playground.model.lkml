@@ -4,6 +4,7 @@ include: "/views/sales_info.view"
 include: "/views/superstore_sales.view"
 include: "/views/customer_lifetime_value.view"
 include: "/views/best_customers.view"
+
 include: "/views/uk_population_by_age.view"
 include: "/views/uk_population_by_year.view"
 include: "/views/uk_predicted_population.view"
@@ -12,6 +13,8 @@ include: "/views/income_after_housing_cost.view"
 include: "/views/weekly_expenditures.view"
 include: "/views/eng_wal_general_health.view"
 include: "/views/eng_wal_disability_impact_on_daily_activities.view"
+include: "/views/eng_wal_residency_type.view"
+include: "/views/eng_wal_older_living_alone.view"
 
 datagroup: looker-playground_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -60,6 +63,14 @@ explore: eng_wal_general_health {
 
 explore: eng_wal_disability_impact_on_daily_activities {
   from: eng_wal_disability_impact_on_daily_activities
+}
+
+explore: eng_wal_residency {
+  from: eng_wal_residency_type
+}
+
+explore: eng_wal_older_living_alone {
+  from: eng_wal_older_living_alone
 }
 
 explore: income {
