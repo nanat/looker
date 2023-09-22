@@ -11,6 +11,7 @@ include: "/views/wellbeing.view"
 include: "/views/income_after_housing_cost.view"
 include: "/views/weekly_expenditures.view"
 include: "/views/eng_wal_general_health.view"
+include: "/views/eng_wal_disability_impact_on_daily_activities.view"
 
 datagroup: looker-playground_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -55,6 +56,10 @@ explore: wellbeing {
 
 explore: eng_wal_general_health {
   from: eng_wal_general_health
+}
+
+explore: eng_wal_disability_impact_on_daily_activities {
+  from: eng_wal_disability_impact_on_daily_activities
 }
 
 explore: income {
