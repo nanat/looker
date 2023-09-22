@@ -15,6 +15,7 @@ include: "/views/eng_wal_general_health.view"
 include: "/views/eng_wal_disability_impact_on_daily_activities.view"
 include: "/views/eng_wal_residency_type.view"
 include: "/views/eng_wal_older_living_alone.view"
+include: "/views/workforce_age.view"
 
 datagroup: looker-playground_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -71,6 +72,10 @@ explore: eng_wal_residency {
 
 explore: eng_wal_older_living_alone {
   from: eng_wal_older_living_alone
+}
+
+explore: workforce_age {
+  from: workforce_age
 }
 
 explore: income {
